@@ -1,0 +1,90 @@
+<html lang="en"><head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    
+        <title>Blog Template for Bootstrap</title>
+    
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
+    
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <!-- Custom styles for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+        <link href="blog.css" rel="stylesheet">
+      </head>
+    
+      <body>
+    
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+            <h5 class="my-0 mr-md-auto font-weight-normal">{{ request.session.author_first_name}} {{ request.session.author_last_name }}</h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="/authors">Authors</a>
+                <a class="p-2 text-dark" href="/">Books</a>
+            </nav>
+        </div>
+
+        <div class="container">
+            <header class="blog-header py-3">
+                <div class="row flex-nowrap justify-content-between align-items-center">
+                </div>
+            </header>
+        </div>
+    
+        <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+            <div class="col-md-6 px-0">
+                <h2 class="display-4 font-italic">{{ request.session.author_first_name}} {{ request.session.author_last_name }}</h2>
+                <h2 class="display-4 font-italic">{{ request.session.author_id }}</h2>
+                <p class="lead my-3">{{ request.session.author_notes }}</p>
+            </div>
+        </div>
+    
+        <div class="row p-3 p-md-5 text-dark rounded bg-light">
+            <div class="col-md-4 px-0">
+                <p class="lead my-3">Books:</p>
+                <ul>
+                    {% for a in request.session.author_books %}
+                        <li>{{a}}</li>
+                    {% endfor %}
+    
+                </ul>
+            </div>
+        </div>
+        <div class="row p-3 p-md-5 text-dark rounded bg-light">
+            <form action="/add_them" method="POST">
+                {% csrf_token %}
+                <div class="btn-group">
+                    <select class="btn text-dark bg-light" name="book">              
+                        {% for a in request.session.for_print_books %}
+                            {{ a | safe }}
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="hidden" name="author_id" value="{{ request.session.author_id }}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        </div>
+    
+    
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/vendor/holder.min.js"></script>
+        <script>
+          Holder.addTheme('thumb', {
+            bg: '#55595c',
+            fg: '#eceeef',
+            text: 'Thumbnail'
+          });
+        </script>
+        </body>
+    </html>

@@ -1,0 +1,42 @@
+Query: Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby
+
+Book.objects.create(title="C Sharp")
+Book.objects.create(title="Java")
+Book.objects.create(title="Python")
+Book.objects.create(title="PHP")
+Book.objects.create(title="Ruby")
+
+Query: Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu
+
+Author.objects.create(first_name="Jane", last_name="Austen")
+Author.objects.create(first_name="Emily", last_name="Dickinson")
+Author.objects.create(first_name="Fyodor", last_name="Dostoevksy")
+Author.objects.create(first_name="William", last_name="Shakespeare")
+Author.objects.create(first_name="Lau", last_name="Tzu")
+
+Create and run the migration files to update the table in your database.
+
+Query: Change the name of the C Sharp book to C#
+>>> this_book = Book.objects.get(title = "C Sharp")
+>>> this_book.title = "C#"
+>>> this_book.save()
+
+Query: Assign the first author to the first 2 books
+>>> first_author = Author.objects.get(id=1)
+>>> first_book = Book.objects.get(id=1)
+>>> first_book.authors = first_author
+>>> second_book = Book.objects.get(id=2)
+>>> second_book.authors = first_author
+
+Query: Assign the second author to the first 3 books
+>>> first_author = Author.objects.get(id=1)
+>>> second_author = Author.objects.get(id=2)
+>>> first_book = Book.objects.get(id=1)
+>>> second_book = Book.objects.get(id=2)
+>>> third_book = Book.objects.get(id=3)
+>>> first_book.authors.add(second_author)
+>>> second_book.authors.add(second_ahtor)
+>>> second_book.authors.add(second_author)
+>>> third_book.authors.add(second_author)
+
+Query: Retrieve all the authors for the 3rd book
